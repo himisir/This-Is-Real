@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
     public float playerHealth;
     public float playerStrength;
     public float bulletDamage;
+    [Range(.1f, .5f)]
+    public float delay;
     void Start()
     {
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Bullet")
+        if (other.gameObject.CompareTag("Bullet"))
         {
+            Debug.Log("Hit by Bullet");
+            Destroy(other.gameObject, delay);
             playerHealth -= bulletDamage;
-            Destroy(other.gameObject);
+
+
         }
     }
     void Health()

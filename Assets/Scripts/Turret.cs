@@ -6,6 +6,7 @@ public class Turret : MonoBehaviour
 {
     public float fireRate;
     public Transform bullet;
+    public Transform barrelTip;
     public float bulletSpeed;
     public bool fire;
     public float hitDistance;
@@ -32,7 +33,7 @@ public class Turret : MonoBehaviour
         while (true)
         {
             //Workout hwo to shoot at target
-            if (fire) Instantiate(bullet, transform.position, transform.rotation);
+            if (fire) Instantiate(bullet, barrelTip.position, barrelTip.rotation);
             //bullet.localScale *= -1;
             yield return new WaitForSeconds(fireRate);
         }
@@ -41,22 +42,29 @@ public class Turret : MonoBehaviour
 
     void LookForEnemy()
     {
-        Debug.DrawRay(transform.position, Vector2.right * hitDistance);
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.right, hitDistance, layerMask);
 
-        if (hitInfo.collider != null)
+        Collider2D hitInfo = Physics2D.OverlapCircle(transform.position, hitDistance, layerMask);
+        //RaycastHit2D hitInfo = Physics2D.Raycast(barrelTip.position, barrelTip.transform.right, hitDistance, layerMask);
+
+        if (hitInfo != null)
         {
-            Debug.Log("Hit " + hitInfo.collider.tag);
-            if (hitInfo.collider.tag == "Player")
+            //Debug.Log("Hit " + hitInfo.tag);
+            if (hitInfo.tag == "Player" && Physics2D.Raycast(barrelTip.position, barrelTip.transform.right, hitDistance, layerMask))
             {
+                float angle = Vector2.Angle(transform.position, hitInfo.transform.position);
+                transform.right = (hitInfo.transform.position - transform.position) * -1; ///Equivalent to lookAt!!!! 
                 fire = true;
-                Debug.Log("Hit " + hitInfo.collider.tag);
+                Debug.Log(angle + " " + hitInfo.transform.position);
+                Debug.DrawRay(transform.position, barrelTip.transform.right * Vector2.Distance(transform.position, hitInfo.transform.position), Color.red);
 
             }
 
         }
         else fire = false;
-        //Code for shooting. 
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, hitDistance);
     }
 
 }
