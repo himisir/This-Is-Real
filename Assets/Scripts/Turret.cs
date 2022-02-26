@@ -1,10 +1,17 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
+
+    public float turretHealth = 100;
+    public float turretMaxHealth = 100;
+    //public Player player;
+    //public HealthBar healthBar;
     public float fireRate;
+
     public Transform bullet;
     public Transform barrelTip;
     public float bulletSpeed;
@@ -13,6 +20,8 @@ public class Turret : MonoBehaviour
     public LayerMask layerMask;
     void Start()
     {
+        //healthBar.SetHeathBar(turretHealth, turretMaxHealth);
+        //player = GetComponent<Player>();
         StartCoroutine(Fire());
 
     }
@@ -20,9 +29,15 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //healthBar.SetHeathBar(turretHealth, turretMaxHealth);
         LookForEnemy();
         Bullet();
+        if (turretHealth <= 0) Die();
 
+    }
+    void Die()
+    {
+        Destroy(gameObject);
     }
     void Bullet()
     {
@@ -34,7 +49,6 @@ public class Turret : MonoBehaviour
         {
             //Workout hwo to shoot at target
             if (fire) Instantiate(bullet, barrelTip.position, barrelTip.rotation);
-            //bullet.localScale *= -1;
             yield return new WaitForSeconds(fireRate);
         }
 
@@ -43,28 +57,29 @@ public class Turret : MonoBehaviour
     void LookForEnemy()
     {
 
-        Collider2D hitInfo = Physics2D.OverlapCircle(transform.position, hitDistance, layerMask);
-        //RaycastHit2D hitInfo = Physics2D.Raycast(barrelTip.position, barrelTip.transform.right, hitDistance, layerMask);
-
-        if (hitInfo != null)
+        Collider2D hitInfo = Physics2D.OverlapCircle(transform.position, hitDistance, layerMask); //Add layerMask if does not work
+        if (hitInfo != null && hitInfo.tag == "Player")
         {
-            //Debug.Log("Hit " + hitInfo.tag);
-            if (hitInfo.tag == "Player" && Physics2D.Raycast(barrelTip.position, barrelTip.transform.right, hitDistance, layerMask))
-            {
-                float angle = Vector2.Angle(transform.position, hitInfo.transform.position);
-                transform.right = (hitInfo.transform.position - transform.position) * -1; ///Equivalent to lookAt!!!! 
-                fire = true;
-                Debug.Log(angle + " " + hitInfo.transform.position);
-                Debug.DrawRay(transform.position, barrelTip.transform.right * Vector2.Distance(transform.position, hitInfo.transform.position), Color.red);
-
-            }
+            fire = true;
+            transform.right = (hitInfo.transform.position - transform.position);
+            Debug.DrawRay(transform.position, transform.right * Vector2.Distance(transform.position, hitInfo.transform.position), Color.red);
 
         }
         else fire = false;
+
+
     }
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, hitDistance);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player Bullet")
+        {
+            //turretHealth -= player.bulletDamagePlayer;
+        }
     }
 
 }

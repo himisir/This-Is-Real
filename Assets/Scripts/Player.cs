@@ -5,23 +5,36 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float playerHealth;
+
+
+
+    public float playerHealth = 100;
+    public float playerMaxHealth = 100;
     public float playerStrength;
-    public float bulletDamage;
+    public float bulletDamageTurret;
+    public float bulletDamageCreep;
+    public float bulletDamagePlayer;
     public float poisonDamage;
+    public bool inPoisonRange;
+
+    public HealthBar healthBar;
+
+
 
     public float hp, st;
-
     float distance;
     [Range(.1f, 1f)]
     public float physiqueUpdateDelay;
 
 
-    public bool inPoisonRange;
+
     void Start()
     {
+        healthBar.SetHeathBar(playerHealth, playerMaxHealth);
+
         StartCoroutine(Physique());
     }
+
 
     //Check if they entered poisonRange; 
 
@@ -29,7 +42,7 @@ public class Player : MonoBehaviour
     {
         PowerUP(other);
 
-        /*
+
         ///<summary>
         ///HP and ST management
         ///</summary>
@@ -48,17 +61,21 @@ public class Player : MonoBehaviour
             else playerStrength += st;
         }
 
-        */
 
         ///<summary>
         ///Bullet damage management
         ///</summary>
 
-        if (other.gameObject.CompareTag("Bullet"))
+        if (other.gameObject.CompareTag("Turret Bullet"))
         {
             Debug.Log("Hit by Bullet");
             Destroy(other.gameObject);
-            playerHealth -= bulletDamage;
+            playerHealth -= bulletDamageTurret;
+        }
+        else if (other.gameObject.CompareTag("Creep Bullet"))
+        {
+            Destroy(other.gameObject);
+            playerHealth -= bulletDamageCreep;
         }
 
         ///<summary>
@@ -109,15 +126,12 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            Health();
+            PoisonDamage();
             Strength();
+
             yield return new WaitForSeconds(physiqueUpdateDelay);
         }
     }
-
-
-
-
 
     ///<summary>
     ///Increase HP and ST by hp and st, may not use it
@@ -140,15 +154,30 @@ public class Player : MonoBehaviour
         }
     }
 
-
-    void Health()
+    void Die()
     {
+        Destroy(gameObject);
+    }
+
+
+
+
+    void PoisonDamage()
+    {
+
         if (distance > 0 && inPoisonRange) playerHealth -= poisonDamage / distance; //Increase damage based on distance
         Debug.Log("Health: " + playerHealth);
     }
 
+
+    
     void Strength()
     {
         Debug.Log("Strength: " + playerStrength);
+    }
+    void Update()
+    {
+
+        healthBar.SetHeathBar(playerHealth, playerMaxHealth);
     }
 }

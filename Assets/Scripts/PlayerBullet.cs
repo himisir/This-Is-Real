@@ -2,48 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour
+public class PlayerBullet : MonoBehaviour
 {
-    public float bulletSpeed;
 
-    [Range(0, 100)]
-    public float maxTravelDistance;
-    Vector2 initialPosition;
-    Turret turret;
+    public float bulletSpeed = 5;
+    public Player player;
     Rigidbody2D rb;
+    Vector2 initialPosition;
+    public float maxTravelDistance = 10;
+
+    // Start is called before the first frame update
     void Start()
     {
-        turret = GetComponent<Turret>();
         initialPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.right * bulletSpeed;
-
-
     }
+
+    // Update is called once per frame
     void Update()
     {
-        //Turret turret = GetComponent<Turret>();
-        //Destroy object if out of sight
         if (maxTravelDistance <= Vector2.Distance(initialPosition, transform.position))
         {
             Destroy(gameObject);
 
         }
+
     }
-    ///<summery>
-    ///Destroy bullet once hits player
-    ///</summery>
     private void OnTriggerEnter2D(Collider2D other)
     {
-
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Tower" || other.gameObject.tag == "Poison Plant" || other.gameObject.tag == "Creep")
         {
-            Debug.Log("Player is hit");
             Destroy(gameObject);
         }
     }
-
-
-
-
 }
