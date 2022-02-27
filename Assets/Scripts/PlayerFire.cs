@@ -23,16 +23,13 @@ public class PlayerFire : MonoBehaviour
     {
         while (true)
         {
-            //Workout hwo to shoot at target
             if (fire) Instantiate(bullet, barrelTip.position, barrelTip.rotation);
             fire = false;
-            //bullet.localScale *= -1;
             yield return new WaitForSeconds(fireRate);
         }
 
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -49,14 +46,4 @@ public class PlayerFire : MonoBehaviour
 
     }
 
-
-
-    void FollowEnemy()
-    {
-        Collider2D hitInfo = Physics2D.OverlapCircle(transform.position, hitDistance);
-        if (hitInfo != null)
-        {
-
-        }
-    }
 }

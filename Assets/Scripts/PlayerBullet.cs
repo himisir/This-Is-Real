@@ -11,7 +11,6 @@ public class PlayerBullet : MonoBehaviour
     Vector2 initialPosition;
     public float maxTravelDistance = 10;
 
-    // Start is called before the first frame update
     void Start()
     {
         initialPosition = transform.position;
@@ -19,7 +18,6 @@ public class PlayerBullet : MonoBehaviour
         rb.velocity = transform.right * bulletSpeed;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (maxTravelDistance <= Vector2.Distance(initialPosition, transform.position))
@@ -31,9 +29,13 @@ public class PlayerBullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Tower" || other.gameObject.tag == "Poison Plant" || other.gameObject.tag == "Creep")
+        if (other.gameObject != null)
         {
-            Destroy(gameObject);
+
+            if (other.gameObject.tag == "Tower" || other.gameObject.tag == "Poison Plant" || other.gameObject.tag == "Creep")
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -12,6 +12,19 @@ TagManager:
   - HP
   - ST
   - Enemy
+  - Creep
+  - Turret Bullet
+  - Player Bullet
+  - Creep Bullet
+  - Turret
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - Firming
   layers:
   - Default
   - TransparentFX

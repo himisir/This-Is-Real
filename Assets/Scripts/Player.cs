@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
 {
 
 
-
+    public static bool isDead;
+    public static bool isWin;
     public float playerHealth = 100;
     public float playerMaxHealth = 100;
     public float playerStrength;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     public float bulletDamagePlayer;
     public float poisonDamage;
     public bool inPoisonRange;
+    public float plusHealth;
 
     public HealthBar healthBar;
 
@@ -25,6 +27,9 @@ public class Player : MonoBehaviour
     float distance;
     [Range(.1f, 1f)]
     public float physiqueUpdateDelay;
+
+    public bool p1, p2, p3, p4, p5, p6, p7;
+    public float creepHpPlus;
 
 
 
@@ -39,53 +44,160 @@ public class Player : MonoBehaviour
     //Check if they entered poisonRange; 
 
     private void OnTriggerEnter2D(Collider2D other)
-    {
-        PowerUP(other);
+    { ///<summery>
+      ///Artifacts collection and seting certian variable as true
+        ;
 
-
-        ///<summary>
-        ///HP and ST management
-        ///</summary>
-
-        if (other.gameObject.tag == "HP")
+        if (other.gameObject != null)
         {
-            Destroy(other.gameObject);
-            if (playerHealth + hp >= 100) playerHealth = 100;
-            else playerHealth += hp;
+            Debug.Log(other.gameObject.name);
+            {
+                if (other.gameObject.tag == "1")
+                {
+                    p1 = true;
+                    bulletDamageTurret++;
+                    bulletDamageCreep++;
+                    poisonDamage += 0.3f;
+                    playerHealth += plusHealth;
+                    playerMaxHealth += plusHealth;
+                    bulletDamagePlayer += 1;
+                    Destroy(other.gameObject);
+                }
+                if (other.gameObject.tag == "2")
+                {
+                    p2 = true;
+                    bulletDamageTurret++;
+                    bulletDamageCreep++;
+                    poisonDamage += 0.3f;
+                    playerHealth += plusHealth;
+                    playerMaxHealth += plusHealth;
+                    bulletDamagePlayer += 2;
+                    Destroy(other.gameObject);
+                }
+                if (other.gameObject.tag == "3")
+                {
+                    p3 = true;
+                    bulletDamageTurret++;
+                    bulletDamageCreep++;
+                    poisonDamage += 0.3f;
+                    playerHealth += plusHealth;
+                    playerMaxHealth += plusHealth;
+                    bulletDamagePlayer += 3;
+                    Destroy(other.gameObject);
+                }
+                if (other.gameObject.tag == "4")
+                {
+                    p4 = true;
+                    bulletDamageTurret++;
+                    bulletDamageCreep++;
+                    poisonDamage += 0.3f;
+                    playerHealth += plusHealth;
+                    playerMaxHealth += plusHealth;
+                    bulletDamagePlayer += 4;
+                    Destroy(other.gameObject);
+                }
+                if (other.gameObject.tag == "5")
+                {
+                    p5 = true;
+                    bulletDamageTurret++;
+                    bulletDamageCreep++;
+                    poisonDamage += 0.3f;
+                    playerHealth += plusHealth;
+                    playerMaxHealth += plusHealth;
+                    bulletDamagePlayer += 5;
+                    Destroy(other.gameObject);
+                }
+                if (other.gameObject.tag == "6")
+                {
+                    p6 = true;
+                    bulletDamageTurret++;
+                    bulletDamageCreep++;
+                    poisonDamage += 0.3f;
+                    playerHealth += plusHealth;
+                    playerMaxHealth += plusHealth;
+                    bulletDamagePlayer += 6;
+                    Destroy(other.gameObject);
+                }
+                if (other.gameObject.tag == "7")
+                {
+                    p7 = true;
+                    bulletDamageTurret++;
+                    bulletDamageCreep++;
+                    poisonDamage += 0.3f;
+                    playerHealth += plusHealth;
+                    playerMaxHealth += plusHealth;
+                    bulletDamagePlayer += 7;
+                    Destroy(other.gameObject);
 
-        }
-        if (other.gameObject.tag == "ST")
-        {
-            Destroy(other.gameObject);
-            if (playerStrength + st >= 100) playerStrength = 100;
-            else playerStrength += st;
-        }
+                }
+                if (other.gameObject.tag == "Firming")
+                {
+                    playerHealth += creepHpPlus;
+                    bulletDamagePlayer += 10 / creepHpPlus;
+
+                    Destroy(other.gameObject);
+                }
+                if (other.gameObject.tag == "Key")
+                {
+                    bulletDamageTurret += 2;
+                    bulletDamageCreep += 2;
+                    poisonDamage += 2;
+                    playerHealth += plusHealth * 3;
+                    playerMaxHealth += plusHealth * 3;
+                    bulletDamagePlayer += 20;
+                    Destroy(other.gameObject);
+
+                }
+            }
+
+            PowerUP(other);
+            ///<summary>
+            ///HP and ST management
+            ///</summary>
+
+            if (other.gameObject.tag == "HP")
+            {
+                Destroy(other.gameObject);
+                if (playerHealth + hp >= 100) playerHealth = 100;
+                else playerHealth += hp;
+
+            }
+            if (other.gameObject.tag == "ST")
+            {
+                Destroy(other.gameObject);
+                if (playerStrength + st >= 100) playerStrength = 100;
+                else playerStrength += st;
+            }
 
 
-        ///<summary>
-        ///Bullet damage management
-        ///</summary>
 
-        if (other.gameObject.CompareTag("Turret Bullet"))
-        {
-            Debug.Log("Hit by Bullet");
-            Destroy(other.gameObject);
-            playerHealth -= bulletDamageTurret;
-        }
-        else if (other.gameObject.CompareTag("Creep Bullet"))
-        {
-            Destroy(other.gameObject);
-            playerHealth -= bulletDamageCreep;
-        }
+            ///<summary>
+            ///Bullet damage management
+            ///</summary>
 
-        ///<summary>
-        /// Poison Plant damage management
-        ///</summary>
+            if (other.gameObject.CompareTag("Turret Bullet"))
+            {
 
-        if (other.gameObject.tag == "Poison Plant")
-        {
-            inPoisonRange = true;
-            distance = Vector2.Distance(transform.position, other.gameObject.transform.position);
+                Destroy(other.gameObject);
+                playerHealth -= bulletDamageTurret;
+            }
+            else if (other.gameObject.CompareTag("Creep Bullet"))
+            {
+                Destroy(other.gameObject);
+                playerHealth -= bulletDamageCreep;
+            }
+
+            ///<summary>
+            /// Poison Plant damage management
+            ///</summary>
+
+            if (other.gameObject.tag == "Poison Plant")
+            {
+                inPoisonRange = true;
+                distance = Vector2.Distance(transform.position, other.gameObject.transform.position);
+
+            }
+
 
         }
     }
@@ -152,6 +264,10 @@ public class Player : MonoBehaviour
             if (playerStrength + st >= 100) playerStrength = 100;
             else playerStrength += st;
         }
+        if (other.gameObject.tag == "Win")
+        {
+            isWin = true;
+        }
     }
 
     void Die()
@@ -170,7 +286,7 @@ public class Player : MonoBehaviour
     }
 
 
-    
+
     void Strength()
     {
         Debug.Log("Strength: " + playerStrength);
@@ -179,5 +295,11 @@ public class Player : MonoBehaviour
     {
 
         healthBar.SetHeathBar(playerHealth, playerMaxHealth);
+        if (playerHealth <= 0)
+        {
+            isDead = true;
+            Time.timeScale = 0;
+        }
+
     }
 }

@@ -12,6 +12,7 @@ public class Creep : MonoBehaviour
     public float speed;
     public Player playerScript;
     public HealthBar healthBar;
+    public Transform artifact;
     public Rigidbody2D rb;
     public Animator animator;
     public Transform player;
@@ -19,10 +20,10 @@ public class Creep : MonoBehaviour
     public bool up;
     Vector2 currentPos;
     Vector2 movement;
+    bool flag;
     void Start()
     {
         healthBar.SetHeathBar(creepHealth, creepMaxHealth);
-        //playerScript = GetComponent<Player>();
         currentPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
         if (!up) rb.velocity = transform.right * speed;
@@ -48,6 +49,12 @@ public class Creep : MonoBehaviour
 
     void Die()
     {
+        if (!flag)
+        {
+            Instantiate(artifact, transform.position, transform.rotation);
+            flag = true;
+        }
+
         Destroy(gameObject);
     }
 }

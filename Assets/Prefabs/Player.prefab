@@ -1,5 +1,55 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &269799804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 269799805}
+  - component: {fileID: 269799806}
+  m_Layer: 6
+  m_Name: Tip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &269799805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269799804}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2961415920456447880}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &269799806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269799804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eaf54e2e18593f939ba7fe0bf8430ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 4990300207374841407, guid: 11308c6e6f47e5baf843764c6647aad4, type: 3}
+  barrelTip: {fileID: 269799805}
+  bulletSpeed: 1
+  fire: 0
+  fireRate: 1
+  hitDistance: 5
 --- !u!1 &333469731
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,8 +84,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: -10.050018, y: -0.0000019073486}
+  m_SizeDelta: {x: -29.57, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1237546450
 GameObject:
@@ -62,8 +112,8 @@ Transform:
   m_GameObject: {fileID: 1237546450}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.173, z: 0}
-  m_LocalScale: {x: 0.2079002, y: 0.2079002, z: 0.2079002}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1483939776}
   m_Father: {fileID: 2961415920456447880}
@@ -104,8 +154,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -4.9, y: 0}
+  m_SizeDelta: {x: -9.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1482283329
 CanvasRenderer:
@@ -183,7 +233,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 191.3909, y: 38.4959}
+  m_SizeDelta: {x: 122.1883, y: 27.2049}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1483939779
 Canvas:
@@ -351,7 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1528845087}
-  min: {r: 0.4716981, g: 0.015574946, b: 0.20914854, a: 0}
+  min: {r: 1, g: 0.75, b: 0.85560346, a: 0}
   max: {r: 0.09511839, g: 0.23584908, b: 0.0033374808, a: 0}
 --- !u!1 &2012125136
 GameObject:
@@ -388,8 +438,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 0}
+  m_AnchoredPosition: {x: 4.9, y: 0}
+  m_SizeDelta: {x: 19.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2012125139
 CanvasRenderer:
@@ -412,7 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.029859383, g: 0.34117648, b: 0.105949484, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.10410547, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -513,8 +563,9 @@ Transform:
   m_Children:
   - {fileID: 6446080797692312599}
   - {fileID: 1237546451}
+  - {fileID: 269799805}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2326204526933228002
 SpriteRenderer:
@@ -655,12 +706,21 @@ MonoBehaviour:
   playerHealth: 100
   playerMaxHealth: 100
   playerStrength: 100
-  bulletDamageTurret: 5
-  bulletDamageCreep: 1
-  bulletDamagePlayer: 10
+  bulletDamageTurret: 3
+  bulletDamageCreep: 3
+  bulletDamagePlayer: 5
   poisonDamage: 1
   inPoisonRange: 0
-  healthBar: {fileID: 0}
+  plusHealth: 50
+  healthBar: {fileID: 1528845086}
   hp: 0
   st: 0
   physiqueUpdateDelay: 0
+  p1: 0
+  p2: 0
+  p3: 0
+  p4: 0
+  p5: 0
+  p6: 0
+  p7: 0
+  creepHpPlus: 5

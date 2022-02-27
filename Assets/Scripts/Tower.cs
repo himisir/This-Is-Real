@@ -5,8 +5,11 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     public HealthBar healthBar;
+    public Transform artifact;
+    public Transform point;
     public Player player;
     float turretHealth;
+    bool flag;
     public float turretMaxHealth;
 
     void Start()
@@ -18,6 +21,7 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GameCheck();
         healthBar.SetHeathBar(turretHealth, turretMaxHealth);
         if (turretHealth <= 0) Die();
     }
@@ -28,8 +32,26 @@ public class Tower : MonoBehaviour
             turretHealth -= player.bulletDamagePlayer;
         }
     }
+    void GameCheck()
+    {
+        /*
+        Debug.Log(point.gameObject.tag);
+        point.gameObject.SetActive(player.p1 && gameObject.name == "2");
+        point.gameObject.SetActive(player.p2 && gameObject.tag == "3");
+        point.gameObject.SetActive(player.p3 && gameObject.tag == "4");
+        point.gameObject.SetActive(player.p4 && gameObject.tag == "5");
+        point.gameObject.SetActive(player.p5 && gameObject.tag == "6");
+        */
+      
+    }
     void Die()
     {
+        if (!flag)
+        {
+            Instantiate(artifact, point.transform.position, point.transform.rotation);
+            flag = true;
+        }
+
         Destroy(gameObject);
     }
 

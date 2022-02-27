@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &7025761197475532107
 SpriteRenderer:
@@ -137,5 +137,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 5
-  player: {fileID: 0}
+  player: {fileID: 3881571078197455467, guid: 6e915de4c289b17ca8c0b9b8f037c1ae, type: 3}
   maxTravelDistance: 10

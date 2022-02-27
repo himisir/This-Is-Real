@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PoisonPlant : MonoBehaviour
 {
-    public float poisonPlantHealth=100;
-    public float poisonPlantMaxHealth=100;
+    public float poisonPlantHealth = 100;
+    public float poisonPlantMaxHealth = 100;
     public Player playerScript;
     public HealthBar healthBar;
     CircleCollider2D sphereCollider;
@@ -14,11 +14,10 @@ public class PoisonPlant : MonoBehaviour
     void Start()
     {
         healthBar.SetHeathBar(poisonPlantHealth, poisonPlantMaxHealth);
-        playerScript = GetComponent<Player>();
+
         sphereCollider = GetComponent<CircleCollider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         healthBar.SetHeathBar(poisonPlantHealth, poisonPlantMaxHealth);
