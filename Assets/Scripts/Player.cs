@@ -2,6 +2,7 @@ using System.Runtime.InteropServices;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -18,8 +19,10 @@ public class Player : MonoBehaviour
     public float poisonDamage;
     public bool inPoisonRange;
     public float plusHealth;
+    public float creepKillDamageGain;
 
     public HealthBar healthBar;
+    public int creepKillCount;
 
 
 
@@ -37,20 +40,26 @@ public class Player : MonoBehaviour
     {
         healthBar.SetHeathBar(playerHealth, playerMaxHealth);
 
-        StartCoroutine(Physique());
+        //StartCoroutine(Physique()); //Disabled for now
     }
 
 
-    //Check if they entered poisonRange; 
+
+
+    ///<summery>
+    ///Following section is for checking triggers and setting health/damage value based on that. 
+    ///</summery>
+
 
     private void OnTriggerEnter2D(Collider2D other)
-    { ///<summery>
-      ///Artifacts collection and seting certian variable as true
-        ;
+    {
+        ///<summery>
+        ///Health and Damage management
+        ///</summery>
 
         if (other.gameObject != null)
         {
-            Debug.Log(other.gameObject.name);
+            //Debug.Log(other.gameObject.name);
             {
                 if (other.gameObject.tag == "1")
                 {
@@ -58,8 +67,9 @@ public class Player : MonoBehaviour
                     bulletDamageTurret++;
                     bulletDamageCreep++;
                     poisonDamage += 0.3f;
-                    playerHealth += plusHealth;
+
                     playerMaxHealth += plusHealth;
+                    playerHealth = playerMaxHealth;
                     bulletDamagePlayer += 1;
                     Destroy(other.gameObject);
                 }
@@ -69,8 +79,8 @@ public class Player : MonoBehaviour
                     bulletDamageTurret++;
                     bulletDamageCreep++;
                     poisonDamage += 0.3f;
-                    playerHealth += plusHealth;
                     playerMaxHealth += plusHealth;
+                    playerHealth = playerMaxHealth;
                     bulletDamagePlayer += 2;
                     Destroy(other.gameObject);
                 }
@@ -80,8 +90,8 @@ public class Player : MonoBehaviour
                     bulletDamageTurret++;
                     bulletDamageCreep++;
                     poisonDamage += 0.3f;
-                    playerHealth += plusHealth;
                     playerMaxHealth += plusHealth;
+                    playerHealth = playerMaxHealth;
                     bulletDamagePlayer += 3;
                     Destroy(other.gameObject);
                 }
@@ -91,8 +101,8 @@ public class Player : MonoBehaviour
                     bulletDamageTurret++;
                     bulletDamageCreep++;
                     poisonDamage += 0.3f;
-                    playerHealth += plusHealth;
                     playerMaxHealth += plusHealth;
+                    playerHealth = playerMaxHealth;
                     bulletDamagePlayer += 4;
                     Destroy(other.gameObject);
                 }
@@ -102,8 +112,8 @@ public class Player : MonoBehaviour
                     bulletDamageTurret++;
                     bulletDamageCreep++;
                     poisonDamage += 0.3f;
-                    playerHealth += plusHealth;
                     playerMaxHealth += plusHealth;
+                    playerHealth = playerMaxHealth;
                     bulletDamagePlayer += 5;
                     Destroy(other.gameObject);
                 }
@@ -114,7 +124,7 @@ public class Player : MonoBehaviour
                     bulletDamageCreep++;
                     poisonDamage += 0.3f;
                     playerHealth += plusHealth;
-                    playerMaxHealth += plusHealth;
+                    playerHealth = playerMaxHealth;
                     bulletDamagePlayer += 6;
                     Destroy(other.gameObject);
                 }
@@ -124,32 +134,44 @@ public class Player : MonoBehaviour
                     bulletDamageTurret++;
                     bulletDamageCreep++;
                     poisonDamage += 0.3f;
-                    playerHealth += plusHealth;
                     playerMaxHealth += plusHealth;
+                    playerHealth = playerMaxHealth;
                     bulletDamagePlayer += 7;
                     Destroy(other.gameObject);
 
                 }
                 if (other.gameObject.tag == "Firming")
                 {
-                    playerHealth += creepHpPlus;
-                    bulletDamagePlayer += 10 / creepHpPlus;
-
+                    if (playerHealth <= playerMaxHealth) playerHealth += creepHpPlus;
+                    bulletDamagePlayer += creepKillDamageGain / creepHpPlus;
+                    creepKillCount++;
                     Destroy(other.gameObject);
                 }
+
+
                 if (other.gameObject.tag == "Key")
                 {
                     bulletDamageTurret += 2;
                     bulletDamageCreep += 2;
                     poisonDamage += 2;
-                    playerHealth += plusHealth * 3;
                     playerMaxHealth += plusHealth * 3;
+                    playerHealth = playerMaxHealth;
                     bulletDamagePlayer += 20;
                     Destroy(other.gameObject);
 
                 }
+                if (other.gameObject.tag == "Win")
+                {
+                    isWin = true;
+                }
             }
 
+
+            ///<summery>
+            ///Power up machanism is disable for now
+            ///</summery>
+
+            /*
             PowerUP(other);
             ///<summary>
             ///HP and ST management
@@ -168,7 +190,7 @@ public class Player : MonoBehaviour
                 if (playerStrength + st >= 100) playerStrength = 100;
                 else playerStrength += st;
             }
-
+            */
 
 
             ///<summary>
@@ -187,16 +209,17 @@ public class Player : MonoBehaviour
                 playerHealth -= bulletDamageCreep;
             }
 
+
             ///<summary>
             /// Poison Plant damage management
             ///</summary>
+            /*
 
             if (other.gameObject.tag == "Poison Plant")
             {
-                inPoisonRange = true;
                 distance = Vector2.Distance(transform.position, other.gameObject.transform.position);
-
             }
+            */
 
 
         }
@@ -211,43 +234,51 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Poison Plant" && inPoisonRange)
         {
             distance = Vector2.Distance(transform.position, other.gameObject.transform.position);
+            PoisonDamage();
+
+
         }
     }
-
-
 
     ///<summary>
     ///Poison Plant damage management
     ///</summary>
+
     //Check if they left poisonRange; 
-    private void OnTriggerExit2D(Collider2D other)
+    /*    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "Poison Plant")
         {
             inPoisonRange = false;
         }
     }
-
+    */
 
     ///<summary>
+    /// Physique()
     ///Take care of player health and strength
+    ///But it is obsolete now
     ///</summary>
     ///<pram name = "physiqueUpdateDelay"> </param>
 
-    IEnumerator Physique()
-    {
-        while (true)
+    /*
+        IEnumerator Physique()
         {
-            PoisonDamage();
-            Strength();
+            while (true)
+            {
+                PoisonDamage();
+                Strength();
 
-            yield return new WaitForSeconds(physiqueUpdateDelay);
+                yield return new WaitForSeconds(physiqueUpdateDelay);
+            }
         }
-    }
+
+        */
 
     ///<summary>
     ///Increase HP and ST by hp and st, may not use it
     ///</summery>
+    /*  
     void PowerUP(Collider2D other)
     {
 
@@ -264,12 +295,9 @@ public class Player : MonoBehaviour
             if (playerStrength + st >= 100) playerStrength = 100;
             else playerStrength += st;
         }
-        if (other.gameObject.tag == "Win")
-        {
-            isWin = true;
-        }
+        
     }
-
+    */
     void Die()
     {
         Destroy(gameObject);
@@ -280,26 +308,22 @@ public class Player : MonoBehaviour
 
     void PoisonDamage()
     {
+        if (distance > 0) playerHealth -= poisonDamage / distance; //Increase damage based on distance
 
-        if (distance > 0 && inPoisonRange) playerHealth -= poisonDamage / distance; //Increase damage based on distance
-        Debug.Log("Health: " + playerHealth);
     }
 
 
 
     void Strength()
     {
-        Debug.Log("Strength: " + playerStrength);
+        //Debug.Log("Strength: " + playerStrength);
     }
     void Update()
     {
-
         healthBar.SetHeathBar(playerHealth, playerMaxHealth);
         if (playerHealth <= 0)
         {
             isDead = true;
-            Time.timeScale = 0;
         }
-
     }
 }

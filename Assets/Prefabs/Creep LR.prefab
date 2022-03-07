@@ -167,10 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf3477ae5d93696091ee5a2bb060bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creepHealth: 100
-  creepMaxHealth: 100
+  creepHealth: 30
+  creepMaxHealth: 30
   speed: 0.5
-  playerScript: {fileID: 3881571078197455467, guid: 6e915de4c289b17ca8c0b9b8f037c1ae, type: 3}
+  playerScript: {fileID: 1617708991008599912, guid: 758accd1f5eedb4d8abe98b9fe34c811, type: 3}
   healthBar: {fileID: 5684998075770111620}
   artifact: {fileID: 8266903512917274285, guid: 193aa06c343491b388860e795bcf58fd, type: 3}
   rb: {fileID: 9176267254321746486}

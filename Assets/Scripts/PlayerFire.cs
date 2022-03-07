@@ -6,11 +6,16 @@ public class PlayerFire : MonoBehaviour
 {
     public Transform bullet;
     public Transform barrelTip;
-    public float bulletSpeed;
+
+    [Range(0f, 100f)]
+    public float bulletSpeed = 5;
     public bool fire;
+
+    [Range(0f, 100f)]
     public float fireRate;
     Vector2 targetPos;
-    public float hitDistance;
+    [Range(0f, 100f)]
+    public float hitRadius;
 
     // Start is called before the first frame update
     void Start()
@@ -23,15 +28,18 @@ public class PlayerFire : MonoBehaviour
     {
         while (true)
         {
+
             if (fire) Instantiate(bullet, barrelTip.position, barrelTip.rotation);
             fire = false;
-            yield return new WaitForSeconds(fireRate);
+            yield return new WaitForSeconds(1 / fireRate);
+
         }
 
     }
 
     void Update()
     {
+
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -40,10 +48,14 @@ public class PlayerFire : MonoBehaviour
 
             transform.right = ((Vector2)transform.position - targetPos) * -1;
             fire = true;
-            Debug.Log(Vector2.Angle(transform.position, targetPos));
+            //Debug.Log(Vector2.Angle(transform.position, targetPos));
             Debug.DrawRay(transform.position, transform.right * (Vector2.Distance(transform.position, targetPos)), Color.red);
         }
 
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, hitRadius);
     }
 
 }

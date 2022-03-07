@@ -28,12 +28,13 @@ public class UI : MonoBehaviour
 
         if (Player.isDead)
         {
+            Time.timeScale = 0;
 
             dead.SetActive(true);
         }
         else if (Player.isWin)
         {
-
+            Time.timeScale = 0;
             win.SetActive(true);
 
         }
@@ -42,7 +43,7 @@ public class UI : MonoBehaviour
     }
     public void Restart()
     {
-        SceneManager.LoadScene("GameScene 0");
+        SceneManager.LoadScene(0);
     }
     public void Exit()
     {

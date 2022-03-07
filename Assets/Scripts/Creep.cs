@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System;
 using System.Runtime;
 using System.Collections;
@@ -32,6 +33,7 @@ public class Creep : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Creep Health " + creepHealth);
         healthBar.SetHeathBar(creepHealth, creepMaxHealth);
         animator.SetFloat("Horizontal", horizontal);
         animator.SetFloat("Vertical", vertical);

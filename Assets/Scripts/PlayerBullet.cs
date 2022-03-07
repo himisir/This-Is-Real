@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,14 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
 
+
+    [Range(0, 100)]
     public float bulletSpeed = 5;
-    public Player player;
+    [Range(0, 100)]
+    public float maxTravelDistance = 5;
     Rigidbody2D rb;
     Vector2 initialPosition;
-    public float maxTravelDistance = 10;
+
 
     void Start()
     {
@@ -20,8 +24,10 @@ public class PlayerBullet : MonoBehaviour
 
     void Update()
     {
+
         if (maxTravelDistance <= Vector2.Distance(initialPosition, transform.position))
         {
+
             Destroy(gameObject);
 
         }
@@ -34,6 +40,7 @@ public class PlayerBullet : MonoBehaviour
 
             if (other.gameObject.tag == "Tower" || other.gameObject.tag == "Poison Plant" || other.gameObject.tag == "Creep")
             {
+                Debug.Log(other.gameObject.tag);
                 Destroy(gameObject);
             }
         }
