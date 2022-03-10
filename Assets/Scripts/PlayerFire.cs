@@ -28,7 +28,6 @@ public class PlayerFire : MonoBehaviour
     {
         while (true)
         {
-
             if (fire) Instantiate(bullet, barrelTip.position, barrelTip.rotation);
             fire = false;
             yield return new WaitForSeconds(1 / fireRate);
@@ -40,8 +39,7 @@ public class PlayerFire : MonoBehaviour
     void Update()
     {
 
-
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && UI.isGameRunning)
         {
             Vector2 pos = Input.mousePosition;
             targetPos = Camera.main.ScreenToWorldPoint(pos);

@@ -1,53 +1,98 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
-    Button restartButton;
-    public GameObject win;
-    public GameObject dead;
+    public static bool isGameRunning;
+    public Player player;
+    Button startButton;
     Button exitButton;
+    Button restartButton;
+    Button resumeButton;
+
+    public GameObject winNote;
+    public GameObject deadNote;
+    public GameObject start;
+    public GameObject restart;
+    public GameObject pause;
+    public GameObject background;
+    public bool isGameRestart;
 
     // Start is called before the first frame update
     void Start()
     {
-        restartButton = GetComponent<Button>();
+        isGameRunning = false;
+        background.SetActive(true);
+        startButton = GetComponent<Button>();
         exitButton = GetComponent<Button>();
+        restartButton = GetComponent<Button>();
+        resumeButton = GetComponent<Button>();
+        start.SetActive(true);
     }
-
     void Update()
     {
-
+        Debug.Log("IsGameRunning is " + isGameRunning);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Exit();
+            Pause();
         }
-
-        if (Player.isDead)
+        if (player.isDead)
         {
-            Time.timeScale = 0;
-
-            dead.SetActive(true);
+            deadNote.SetActive(true);
+            Default();
         }
-        else if (Player.isWin)
+        else if (player.isWin)
         {
-            Time.timeScale = 0;
-            win.SetActive(true);
-
+            winNote.SetActive(true);
+            Default();
         }
+    }
 
+    public void Default()
+    {
+        isGameRunning = false;
+        background.SetActive(true);
+        if (isGameRestart)
+        {
+            restart.SetActive(true);
+        }
+        else start.SetActive(true);
 
     }
     public void Restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
+
+    public void StartGame()
+    {
+        background.SetActive(false);
+        isGameRunning = true;
+        isGameRestart = true;
+        start.SetActive(false);
+        restart.SetActive(false);
+    }
+
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void Pause()
+    {
+        background.SetActive(true);
+        pause.SetActive(true);
+        isGameRunning = false;
+    }
+    public void Resume()
+    {
+        background.SetActive(false);
+        isGameRestart = true;
+        isGameRunning = true;
+        pause.SetActive(false);
     }
 
 }

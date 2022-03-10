@@ -47,8 +47,8 @@ public class Turret : MonoBehaviour
     {
         while (true)
         {
-            //Workout hwo to shoot at target
-            if (fire) Instantiate(bullet, barrelTip.position, barrelTip.rotation);
+            //Workout how to shoot at target
+            if (fire && UI.isGameRunning) Instantiate(bullet, barrelTip.position, barrelTip.rotation);
             yield return new WaitForSeconds(fireRate);
         }
 

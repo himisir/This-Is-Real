@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CreepSpawnManager : MonoBehaviour
 {
+    public Player player;
     public Transform creep;
     bool flag;
 
@@ -17,14 +18,19 @@ public class CreepSpawnManager : MonoBehaviour
     {
         while (true)
         {
-            if (!flag)
-            {
+            if (!UI.isGameRunning)
+
                 yield return new WaitForSeconds(delay);
 
-            }
+            if (!flag)
+
+                yield return new WaitForSeconds(delay);
+
             FlagCheck();
             Instantiate(creep, transform.position, transform.rotation);
             yield return new WaitForSeconds(delay);
+
+
 
         }
 
@@ -32,7 +38,6 @@ public class CreepSpawnManager : MonoBehaviour
         void FlagCheck()
         {
             this.flag = false;
-            Player player = FindObjectOfType<Player>();
             if (gameObject.tag == "1") this.flag = true;
             if (player.p1 && gameObject.name == "2")
             {

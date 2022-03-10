@@ -137,5 +137,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 5
-  player: {fileID: 1617708991008599912, guid: 758accd1f5eedb4d8abe98b9fe34c811, type: 3}
-  playerFire: {fileID: 6793624512265175471, guid: 758accd1f5eedb4d8abe98b9fe34c811, type: 3}
+  maxTravelDistance: 2.4

@@ -38,7 +38,7 @@ public class Creep : MonoBehaviour
         animator.SetFloat("Horizontal", horizontal);
         animator.SetFloat("Vertical", vertical);
         animator.SetFloat("Speed", rb.velocity.sqrMagnitude);
-        if (creepHealth <= 0) Die();
+        if (creepHealth <= 0 || !UI.isGameRunning) Die();
 
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -51,7 +51,8 @@ public class Creep : MonoBehaviour
 
     void Die()
     {
-        if (!flag)
+
+        if (!flag && UI.isGameRunning)
         {
             Instantiate(artifact, transform.position, transform.rotation);
             flag = true;
