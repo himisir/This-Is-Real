@@ -1,4 +1,3 @@
-#This is Real, Brackeys Game Jam 2022.1 
+Tower defence Mini game. Can be played on browser from here: https://himisir.itch.io/tower-rush
 
-
-![Picture](https://user-images.githubusercontent.com/31031926/155726427-0978b9a4-bc4a-4fdc-b2e1-a7097cc95c22.png)
+![Screenshot from 2022-03-10 20-39-05](https://user-images.githubusercontent.com/31031926/157701798-0b74e4d8-2510-4975-8a86-bf170b7e2c3e.png)
